@@ -17,9 +17,9 @@ caps["pageLoadStrategy"] = "none"
 counter = 0
 
 if 'log.log':
-    logging.basicConfig(filename='log.log', filemode='w', format='%(asctime)s - %(message)s',datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO)
-else:
     logging.basicConfig(filename='log.log', filemode='a', format='%(asctime)s - %(message)s',datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO)
+else:
+    logging.basicConfig(filename='log.log', filemode='w', format='%(asctime)s - %(message)s',datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO)
  
 while counter < 3:
     
