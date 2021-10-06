@@ -1,14 +1,14 @@
 
-import requests
+import requests,random, string, time, logging
 from bs4 import BeautifulSoup
 from lxml import etree
 from selenium import webdriver
-import time
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.chrome.options import Options
 
 
 # url_excample = 'https://prnt.sc/hpycu1' #--> hpycu1 is changing and can be both int and str literals
+
 headers = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.9 Safari/537.36' }
 options = Options()
 options.headless = False
@@ -16,18 +16,16 @@ caps = DesiredCapabilities().CHROME
 caps["pageLoadStrategy"] = "none"   
 counter = 0
 
-while counter < 100:
-    import random
-    import string
-    # a = random.choice(string.ascii_letters.lower())
-    # a1 = random.choice(string.ascii_letters.lower())
-    # a2 = random.choice(string.ascii_letters.lower())
-    # a3 = random.choice(string.ascii_letters.lower())
-    # a4 = random.choice(string.ascii_letters.lower())
-    # a5 = random.choice(string.ascii_letters.lower())
+if 'log.log':
+    logging.basicConfig(filename='log.log', filemode='w', format='%(asctime)s - %(message)s',datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO)
+else:
+    logging.basicConfig(filename='log.log', filemode='a', format='%(asctime)s - %(message)s',datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO)
+ 
+while counter < 3:
+    
     strin = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(6))
     url_excample = f'https://prnt.sc/{strin}'
-    print(url_excample)
+    logging.info(url_excample)
     driver = webdriver.Chrome(desired_capabilities=caps,options=options)
     driver.get(url_excample)
     time.sleep(3)
@@ -48,7 +46,7 @@ while counter < 100:
         r = requests.get(url,headers=headers)
         img = r.content
 
-        with open(f"random_image_{counter}.{format}", "wb") as f:
+        with open(f"{strin}.{format}", "wb") as f:
             f.write(img)
 
         counter += 1
