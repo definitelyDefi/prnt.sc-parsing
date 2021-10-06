@@ -19,13 +19,14 @@ counter = 0
 while counter < 100:
     import random
     import string
-    a = random.choice(string.ascii_letters.lower())
-    a1 = random.choice(string.ascii_letters.lower())
-    a2 = random.choice(string.ascii_letters.lower())
-    a3 = random.choice(string.ascii_letters.lower())
-    a4 = random.choice(string.ascii_letters.lower())
-    a5 = random.choice(string.ascii_letters.lower())
-    url_excample = f'https://prnt.sc/{a+a1+a2+a3+a4+a5}'
+    # a = random.choice(string.ascii_letters.lower())
+    # a1 = random.choice(string.ascii_letters.lower())
+    # a2 = random.choice(string.ascii_letters.lower())
+    # a3 = random.choice(string.ascii_letters.lower())
+    # a4 = random.choice(string.ascii_letters.lower())
+    # a5 = random.choice(string.ascii_letters.lower())
+    strin = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(6))
+    url_excample = f'https://prnt.sc/{strin}'
     print(url_excample)
     driver = webdriver.Chrome(desired_capabilities=caps,options=options)
     driver.get(url_excample)
