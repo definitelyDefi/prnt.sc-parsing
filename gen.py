@@ -11,7 +11,7 @@ from selenium.webdriver.chrome.options import Options
 
 headers = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.9 Safari/537.36' }
 options = Options()
-options.headless = False
+options.headless = True
 caps = DesiredCapabilities().CHROME
 caps["pageLoadStrategy"] = "none"   
 counter = 0
@@ -21,7 +21,7 @@ if 'log.log':
 else:
     logging.basicConfig(filename='log.log', filemode='w', format='%(asctime)s - %(message)s',datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO)
  
-while counter < 3:
+while counter < 400:
     
     strin = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(6))
     url_excample = f'https://prnt.sc/{strin}'
@@ -37,25 +37,28 @@ while counter < 3:
 
     with open('test.html', 'r', encoding='utf-8') as output_file:
         soup = BeautifulSoup(output_file, 'html.parser')
-
-    dom = etree.HTML(str(soup))
-    day = dom.xpath('//*[@id="screenshot-image"]/@src')
     try:
-        url = day[0]
-        format = url[-3]+url[-2]+url[-1]
-        r = requests.get(url,headers=headers)
-        img = r.content
+        dom = etree.HTML(str(soup))
+        day = dom.xpath('//*[@id="screenshot-image"]/@src')
+        try:
+            url = day[0]
+            format = url[-3]+url[-2]+url[-1]
+            r = requests.get(url,headers=headers)
+            img = r.content
 
-        with open(f"{strin}.{format}", "wb") as f:
-            f.write(img)
+            with open(fr"img\{strin}.{format}", "wb") as f:
+                f.write(img)
 
-        counter += 1
+            counter += 1
 
+        except Exception as ex:
+            print(ex)
+            counter += 1
+
+            continue
     except Exception as ex:
-        print(ex)
-        counter += 1
-
-        continue
+            print(ex)
+            continue
     
 
 
