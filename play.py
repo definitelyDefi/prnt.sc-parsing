@@ -27,7 +27,7 @@ while counter < 2000:
         url = soup.find('img', id='screenshot-image')['src']
 
     except Exception as ex:
-        print('[Error] Screenshot corrupted1111.')
+        print('[Error] Screenshot corrupted.')
         # counter += 1  
         continue
     
