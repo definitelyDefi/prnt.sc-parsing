@@ -31,10 +31,10 @@ def main_func(count):
             url = soup.find('img', id='screenshot-image')['src']
 
         except Exception as ex:
+
             print('[Error] Screenshot corrupted.')
             # counter += 1  
             continue
-        
         format = url[-3]+url[-2]+url[-1]
         if format == 'peg':
             format = 'j'+format
@@ -44,7 +44,7 @@ def main_func(count):
             if sys.platform.startswith('linux'):
                 with open(fr"img/{strin}.{format}", "wb") as f:
                     f.write(img)
-            elif sys.platform.starswith('win'):
+            elif sys.platform.startswith('win'):
                 with open(fr"img\{strin}.{format}", "wb") as f:
                     f.write(img)
             print('[INFO] Done: ',url)
